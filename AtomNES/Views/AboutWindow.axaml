@@ -3,7 +3,7 @@
     xmlns:atom="https://atomui.net"
     xmlns:v="using:AtomNES.Views"
     x:Class="AtomNES.Views.AboutWindow"
-    Title="关于 AtomNES" Width="460" SizeToContent="Height" CanResize="False"
+    Title="关于 AtomNES" Width="500" SizeToContent="Height" CanResize="False"
     Icon="/Assets/AtomNES.ico"
     WindowStartupLocation="CenterOwner">
     <atom:Window.Logo>
@@ -23,12 +23,10 @@
             <ItemsControl x:Name="LibraryList">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="v:LibraryRow">
-                        <Grid ColumnDefinitions="*,Auto" MinHeight="28">
-                            <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
-                                <atom:TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
-                                <atom:Tag Text="AtomUI 生态" TagColor="geekblue" IsVisible="{Binding IsAtom}" Margin="0" VerticalAlignment="Center" />
-                            </StackPanel>
-                            <atom:Tag Grid.Column="1" Text="{Binding Version}" Margin="0" VerticalAlignment="Center" />
+                        <Grid ColumnDefinitions="*,Auto,Auto" MinHeight="28">
+                            <atom:TextBlock Text="{Binding Name}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                            <atom:Tag Grid.Column="1" Text="AtomUI 生态" TagColor="geekblue" IsVisible="{Binding IsAtom}" Margin="8,0" VerticalAlignment="Center" />
+                            <atom:Tag Grid.Column="2" Text="{Binding Version}" Margin="0" VerticalAlignment="Center" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

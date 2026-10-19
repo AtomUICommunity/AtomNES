@@ -23,6 +23,9 @@
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="ppy.SDL3-CS" Version="2026.1002.1" />
     </ItemGroup>
 

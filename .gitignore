@@ -19,3 +19,6 @@ publish/
 # OS
 Thumbs.db
 .DS_Store
+
+# 发布输出
+/Output/

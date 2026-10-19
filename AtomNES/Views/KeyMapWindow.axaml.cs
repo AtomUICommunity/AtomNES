@@ -29,7 +29,6 @@ public partial class KeyMapWindow : Window
             new KeyMapRow("打开 ROM", "Ctrl + O"),
             new KeyMapRow("暂停 / 继续", "F5"),
             new KeyMapRow("复位 (Reset)", "F2"),
-            new KeyMapRow("静音", "F6"),
             new KeyMapRow("调试器", "F8"),
         };
     }

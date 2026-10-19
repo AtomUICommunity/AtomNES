@@ -53,12 +53,13 @@ public partial class MainViewModel : ViewModelBase, IDisposable
     [ObservableProperty] private double _fps;
     [ObservableProperty] private ScreenScaleMode _scaleMode = ScreenScaleMode.X2;
     [ObservableProperty] private double _speed = 1.0;
-    [ObservableProperty] private bool _isMuted;
     [ObservableProperty] private double _volume = 0.8;
 
-    partial void OnIsMutedChanged(bool value) => Host.Muted = value;
-
-    partial void OnVolumeChanged(double value) => Host.Volume = (float)value;
+    partial void OnVolumeChanged(double value)
+    {
+        Host.Volume = (float)value;
+        Host.Muted = value <= 0;
+    }
 
     [RelayCommand]
     private void SetVolume(string value) => Volume = double.Parse(value, System.Globalization.CultureInfo.InvariantCulture);

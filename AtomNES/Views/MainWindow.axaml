@@ -40,9 +40,8 @@
                     <atom:MenuItem Header="4x" ToggleType="Radio" GroupName="Speed" Command="{Binding SetSpeedCommand}" CommandParameter="4" />
                 </atom:MenuItem>
                 <atom:MenuSeparator />
-                <atom:MenuItem Header="静音" InputGesture="F6" ToggleType="CheckBox" IsChecked="{Binding IsMuted}"
-                               Icon="{antdicons:AntDesignIconProvider Kind=SoundOutlined}" />
-                <atom:MenuItem Header="音量">
+                <atom:MenuItem Header="音量" Icon="{antdicons:AntDesignIconProvider Kind=SoundOutlined}">
+                    <atom:MenuItem Header="0%（静音）" ToggleType="Radio" GroupName="Volume" Command="{Binding SetVolumeCommand}" CommandParameter="0" />
                     <atom:MenuItem Header="25%" ToggleType="Radio" GroupName="Volume" Command="{Binding SetVolumeCommand}" CommandParameter="0.25" />
                     <atom:MenuItem Header="50%" ToggleType="Radio" GroupName="Volume" Command="{Binding SetVolumeCommand}" CommandParameter="0.5" />
                     <atom:MenuItem Header="80%" ToggleType="Radio" GroupName="Volume" IsChecked="True" Command="{Binding SetVolumeCommand}" CommandParameter="0.8" />
