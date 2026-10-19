@@ -1,0 +1,41 @@
+<atom:Window xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:atom="https://atomui.net"
+    xmlns:v="using:AtomNES.Views"
+    x:Class="AtomNES.Views.AboutWindow"
+    Title="关于 AtomNES" Width="460" SizeToContent="Height" CanResize="False"
+    Icon="/Assets/AtomNES.ico"
+    WindowStartupLocation="CenterOwner">
+    <atom:Window.Logo>
+        <Image Source="/Assets/AtomNES-logo.png" Width="18" Height="18" />
+    </atom:Window.Logo>
+    <StackPanel Margin="24,20" Spacing="14">
+        <Image Source="/Assets/AtomNES-logo.png" Width="80" Height="80" HorizontalAlignment="Center" />
+        <StackPanel HorizontalAlignment="Center" Spacing="4">
+            <atom:TextBlock Text="AtomNES" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" />
+            <atom:Tag x:Name="VersionTag" TagColor="blue" HorizontalAlignment="Center" Margin="0" />
+        </StackPanel>
+        <atom:TextBlock TextWrapping="Wrap" TextAlignment="Center"
+                        Foreground="{atom:SharedTokenResource ColorTextSecondary}"
+                        Text="基于 AtomUI 生态构建的跨平台 NES（FC）模拟器。周期精确的 6502 CPU 与逐点 PPU，通过 nestest 及 blargg 系列测试 ROM 验证，界面完全由 AtomUI 组件打造。" />
+        <atom:Separator Margin="0" />
+        <atom:Card Header="依赖库">
+            <ItemsControl x:Name="LibraryList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="v:LibraryRow">
+                        <Grid ColumnDefinitions="*,Auto" MinHeight="28">
+                            <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                <atom:TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                <atom:Tag Text="AtomUI 生态" TagColor="geekblue" IsVisible="{Binding IsAtom}" Margin="0" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <atom:Tag Grid.Column="1" Text="{Binding Version}" Margin="0" VerticalAlignment="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </atom:Card>
+        <atom:TextBlock HorizontalAlignment="Center" FontSize="12"
+                        Foreground="{atom:SharedTokenResource ColorTextTertiary}"
+                        Text="Powered by AtomUI · https://atomui.net" />
+    </StackPanel>
+</atom:Window>

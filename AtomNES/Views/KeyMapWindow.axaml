@@ -1,0 +1,51 @@
+﻿<atom:Window xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:atom="https://atomui.net"
+    xmlns:v="using:AtomNES.Views"
+    x:Class="AtomNES.Views.KeyMapWindow"
+    Title="按键说明" Icon="/Assets/AtomNES.ico" Width="520" SizeToContent="Height" CanResize="False"
+    WindowStartupLocation="CenterOwner">
+    <StackPanel Margin="16" Spacing="12">
+        <Grid ColumnDefinitions="*,12,*">
+            <atom:Card Header="玩家 1">
+                <ItemsControl x:Name="Player1List">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="v:KeyMapRow">
+                            <Grid ColumnDefinitions="80,*" MinHeight="30">
+                                <atom:TextBlock Text="{Binding Button}" VerticalAlignment="Center"
+                                                Foreground="{atom:SharedTokenResource ColorTextSecondary}" />
+                                <atom:Tag Grid.Column="1" Text="{Binding Key}" TagColor="blue" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </atom:Card>
+            <atom:Card Grid.Column="2" Header="玩家 2">
+                <ItemsControl x:Name="Player2List">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="v:KeyMapRow">
+                            <Grid ColumnDefinitions="80,*" MinHeight="30">
+                                <atom:TextBlock Text="{Binding Button}" VerticalAlignment="Center"
+                                                Foreground="{atom:SharedTokenResource ColorTextSecondary}" />
+                                <atom:Tag Grid.Column="1" Text="{Binding Key}" TagColor="purple" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </atom:Card>
+        </Grid>
+        <atom:Card Header="快捷键">
+            <ItemsControl x:Name="HotkeyList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="v:KeyMapRow">
+                        <Grid ColumnDefinitions="160,*" MinHeight="30">
+                            <atom:TextBlock Text="{Binding Button}" VerticalAlignment="Center"
+                                            Foreground="{atom:SharedTokenResource ColorTextSecondary}" />
+                            <atom:Tag Grid.Column="1" Text="{Binding Key}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </atom:Card>
+    </StackPanel>
+</atom:Window>

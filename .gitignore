@@ -1,0 +1,21 @@
+# Build
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.idea/
+.vscode/
+*.DotSettings.user
+TestResults/
+publish/
+
+# Test artifacts
+**/Screenshots/
+
+# 商业游戏 ROM（版权原因不入库；测试 ROM 位于 AtomNES.Device.Tests/TestRoms 并全部保留）
+/Rom/
+
+# OS
+Thumbs.db
+.DS_Store

@@ -1,0 +1,85 @@
+﻿<atom:Window xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:atom="https://atomui.net"
+    xmlns:antdicons="https://atomui.net/icons/antdesign"
+    xmlns:vm="using:AtomNES.ViewModels"
+    xmlns:controls="using:AtomNES.Controls"
+    x:Class="AtomNES.Views.MainWindow"
+    x:DataType="vm:MainViewModel"
+    Title="{Binding WindowTitle}" Width="586" SizeToContent="Height" CanResize="False"
+    Icon="/Assets/AtomNES.ico"
+    DragDrop.AllowDrop="True">
+    <atom:Window.Logo>
+        <Image Source="/Assets/AtomNES-logo.png" Width="18" Height="18" />
+    </atom:Window.Logo>
+
+    <DockPanel>
+        <!-- 菜单栏 -->
+        <atom:Menu DockPanel.Dock="Top" Focusable="False">
+            <atom:MenuItem Header="文件">
+                <atom:MenuItem Header="打开 ROM…" InputGesture="Ctrl+O" Command="{Binding OpenRomCommand}"
+                               Icon="{antdicons:AntDesignIconProvider Kind=FolderOpenOutlined}" />
+                <atom:MenuItem Header="关闭 ROM" Command="{Binding UnloadRomCommand}" IsEnabled="{Binding IsLoaded}"
+                               Icon="{antdicons:AntDesignIconProvider Kind=CloseCircleOutlined}" />
+                <atom:MenuSeparator />
+                <atom:MenuItem Header="退出" Click="OnExitClick"
+                               Icon="{antdicons:AntDesignIconProvider Kind=PoweroffOutlined}" />
+            </atom:MenuItem>
+            <atom:MenuItem Header="控制">
+                <atom:MenuItem Header="暂停 / 继续" InputGesture="F5" Command="{Binding TogglePauseCommand}" IsEnabled="{Binding IsLoaded}"
+                               Icon="{antdicons:AntDesignIconProvider Kind=PauseCircleOutlined}" />
+                <atom:MenuItem Header="复位 (Reset)" InputGesture="F2" Command="{Binding ResetCommand}" IsEnabled="{Binding IsLoaded}"
+                               Icon="{antdicons:AntDesignIconProvider Kind=ReloadOutlined}" />
+                <atom:MenuItem Header="重新上电 (Power)" Command="{Binding PowerCycleCommand}" IsEnabled="{Binding IsLoaded}"
+                               Icon="{antdicons:AntDesignIconProvider Kind=ThunderboltOutlined}" />
+                <atom:MenuSeparator />
+                <atom:MenuItem Header="速度">
+                    <atom:MenuItem Header="0.5x" ToggleType="Radio" GroupName="Speed" Command="{Binding SetSpeedCommand}" CommandParameter="0.5" />
+                    <atom:MenuItem Header="1x" ToggleType="Radio" GroupName="Speed" IsChecked="True" Command="{Binding SetSpeedCommand}" CommandParameter="1" />
+                    <atom:MenuItem Header="2x" ToggleType="Radio" GroupName="Speed" Command="{Binding SetSpeedCommand}" CommandParameter="2" />
+                    <atom:MenuItem Header="4x" ToggleType="Radio" GroupName="Speed" Command="{Binding SetSpeedCommand}" CommandParameter="4" />
+                </atom:MenuItem>
+            </atom:MenuItem>
+            <atom:MenuItem Header="工具">
+                <atom:MenuItem Header="画面尺寸" Icon="{antdicons:AntDesignIconProvider Kind=ExpandOutlined}">
+                    <atom:MenuItem Header="100%" ToggleType="Radio" GroupName="Scale" Command="{Binding SetScaleCommand}" CommandParameter="{x:Static controls:ScreenScaleMode.X1}" />
+                    <atom:MenuItem Header="200%" ToggleType="Radio" GroupName="Scale" IsChecked="True" Command="{Binding SetScaleCommand}" CommandParameter="{x:Static controls:ScreenScaleMode.X2}" />
+                    <atom:MenuItem Header="300%" ToggleType="Radio" GroupName="Scale" Command="{Binding SetScaleCommand}" CommandParameter="{x:Static controls:ScreenScaleMode.X3}" />
+                </atom:MenuItem>
+                <atom:MenuSeparator />
+                <atom:MenuItem Header="调试器" InputGesture="F8" Command="{Binding ShowDebuggerCommand}"
+                               Icon="{antdicons:AntDesignIconProvider Kind=BugOutlined}" />
+            </atom:MenuItem>
+            <atom:MenuItem Header="帮助">
+                <atom:MenuItem Header="按键说明" InputGesture="F1" Click="OnKeyMapClick"
+                               Icon="{antdicons:AntDesignIconProvider Kind=KeyOutlined}" />
+                                               <atom:MenuSeparator />
+                                               <atom:MenuItem Header="关于 AtomNES" Click="OnAboutClick"
+                                                              Icon="{antdicons:AntDesignIconProvider Kind=InfoCircleOutlined}" />
+                                           </atom:MenuItem>
+        </atom:Menu>
+
+        <!-- 状态栏 -->
+        <Border DockPanel.Dock="Bottom" Padding="8,4"
+                BorderThickness="0,1,0,0"
+                BorderBrush="{atom:SharedTokenResource ColorBorderSecondary}"
+                Background="{atom:SharedTokenResource ColorBgLayout}">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="4">
+                    <atom:Tag TagColor="blue" Text="{Binding Speed, StringFormat='{}{0}x'}" />
+                    <atom:Tag TagColor="green" Text="{Binding Fps, StringFormat='{}{0:F1} FPS'}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <atom:Tag Text="{Binding StateText}" />
+                    <atom:Tag TagColor="purple" Text="{Binding MapperText}" IsVisible="{Binding IsLoaded}" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- 画面 -->
+        <Border Background="Black">
+            <controls:NesScreen FrameBuffer="{Binding Screen}" ScaleMode="{Binding ScaleMode}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+    </DockPanel>
+</atom:Window>

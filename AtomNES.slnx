@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="AtomNES.Device.Tests/AtomNES.Device.Tests.csproj" />
+  <Project Path="AtomNES.Device/AtomNES.Device.csproj" />
+  <Project Path="AtomNES/AtomNES.csproj" />
+</Solution>

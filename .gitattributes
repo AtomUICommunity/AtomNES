@@ -1,0 +1,5 @@
+* text=auto
+*.nes binary
+*.ico binary
+*.png binary
+*.log text eol=lf
