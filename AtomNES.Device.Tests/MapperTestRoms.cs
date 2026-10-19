@@ -85,6 +85,15 @@ public class MapperTestRoms(ITestOutputHelper output)
         { "M66_P64K_C16K_V.nes", "066 " },
         { "M180_P128K_CR8K_H.nes", "180 " },
         { "M180_P128K_H.nes", "180 " },
+        { "M9_P128K_C64K.nes", "009 " },
+        { "M10_P128K_C64K_S8K.nes", "010 " },
+        { "M10_P128K_C64K_W8K.nes", "010 " },
+        { "M28_P512K.nes", "028 " },
+        { "M28_P512K_CR32K.nes", "028 " },
+        { "M69_P128K_C64K_S8K.nes", "069 " },
+        { "M69_P128K_C64K_W8K.nes", "069 " },
+        { "M78.3_P128K_C64K.nes", "078 " },
+        { "M118_P128K_C64K.nes", "118 " },
     };
 
     [Theory]

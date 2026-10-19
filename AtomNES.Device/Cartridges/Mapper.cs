@@ -47,7 +47,18 @@ public abstract class Mapper : ICartridgeDevice
 
     private readonly bool[] _chrWritable = new bool[8];
 
-    public virtual bool IrqActive => false;
+    /// <summary>卡带 IRQ 线电平，供带 CPU 周期计数器的 Mapper 使用。</summary>
+    protected bool IrqAsserted;
+
+    public virtual bool IrqActive => IrqAsserted;
+
+    /// <summary>直接读取 PRG ROM 中第 bank 个 8KB 页（用于 $6000 窗口映射 ROM 等场景）。</summary>
+    protected byte ReadPrg8K(int bank, int offset)
+    {
+        var count = PrgBankCount8K;
+        bank = ((bank % count) + count) % count;
+        return Prg[bank * 0x2000 + (offset & 0x1FFF)];
+    }
 
     public virtual void Reset()
     {
