@@ -1,4 +1,4 @@
-<atom:Window xmlns="https://github.com/avaloniaui"
+﻿<atom:Window xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:atom="https://atomui.net"
     xmlns:v="using:AtomNES.Views"
@@ -7,10 +7,10 @@
     Icon="/Assets/AtomNES.ico"
     WindowStartupLocation="CenterOwner">
     <atom:Window.Logo>
-        <Image Source="/Assets/AtomNES-logo.png" Width="18" Height="18" />
+        <Image Source="/Assets/NES.png" Width="18" Height="18" />
     </atom:Window.Logo>
     <StackPanel Margin="24,20" Spacing="14">
-        <Image Source="/Assets/AtomNES-logo.png" Width="80" Height="80" HorizontalAlignment="Center" />
+        <Image Source="/Assets/NES.png" Width="80" Height="80" HorizontalAlignment="Center" />
         <StackPanel HorizontalAlignment="Center" Spacing="4">
             <atom:TextBlock Text="AtomNES" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" />
             <atom:Tag x:Name="VersionTag" TagColor="blue" HorizontalAlignment="Center" Margin="0" />

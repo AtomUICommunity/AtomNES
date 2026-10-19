@@ -10,7 +10,7 @@
     Icon="/Assets/AtomNES.ico"
     DragDrop.AllowDrop="True">
     <atom:Window.Logo>
-        <Image Source="/Assets/AtomNES-logo.png" Width="18" Height="18" />
+        <Image Source="/Assets/NES.png" Width="18" Height="18" />
     </atom:Window.Logo>
 
     <DockPanel>
