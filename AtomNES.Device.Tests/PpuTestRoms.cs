@@ -22,6 +22,7 @@ public class PpuTestRoms(ITestOutputHelper output)
     {
         var bus = new NesBus();
         bus.ConnectPpu(new Ppu2C02(new FrameBuffer()));
+        bus.ConnectApu(new Audio.Apu2A03());
         bus.InsertCartridge(MapperFactory.Create(RomImage.Load(RomPath(rom))));
         return bus;
     }
@@ -58,7 +59,15 @@ public class PpuTestRoms(ITestOutputHelper output)
         "ppu_read_buffer/test_ppu_read_buffer.nes",
         "oam_read/oam_read.nes",
         "oam_stress/oam_stress.nes",
-        "cpu_dummy_writes/cpu_dummy_writes_ppumem.nes"
+        "cpu_dummy_writes/cpu_dummy_writes_ppumem.nes",
+        "apu_test/1-len_ctr.nes",
+        "apu_test/2-len_table.nes",
+        "apu_test/3-irq_flag.nes",
+        "apu_test/4-jitter.nes",
+        "apu_test/5-len_timing.nes",
+        "apu_test/6-irq_flag_timing.nes",
+        "apu_test/7-dmc_basics.nes",
+        "apu_test/8-dmc_rates.nes"
     ];
 
     [Theory]

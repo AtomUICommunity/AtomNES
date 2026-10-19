@@ -123,6 +123,7 @@ public partial class MainWindow : Window
         {
             case Key.F5: vm.TogglePauseCommand.Execute(null); e.Handled = true; return;
             case Key.F2: vm.ResetCommand.Execute(null); e.Handled = true; return;
+            case Key.F6: vm.IsMuted = !vm.IsMuted; e.Handled = true; return;
             case Key.F8: OpenDebugger(); e.Handled = true; return;
             case Key.F1: ShowKeyMap(); e.Handled = true; return;
             case Key.O when e.KeyModifiers == KeyModifiers.Control: vm.OpenRomCommand.Execute(null); e.Handled = true; return;

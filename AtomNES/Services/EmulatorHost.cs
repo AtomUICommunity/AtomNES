@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using AtomNES.Device.Audio;
 using AtomNES.Device.Bus;
 using AtomNES.Device.Cartridges;
 using AtomNES.Device.Display;
@@ -29,6 +30,10 @@ public sealed class EmulatorHost : IDisposable
     {
         Ppu = new Ppu2C02(Screen);
         Bus.ConnectPpu(Ppu);
+        Apu = new Apu2A03(AudioOutput.SampleRate);
+        Bus.ConnectApu(Apu);
+        Audio = AudioOutput.TryCreate(out var audioError);
+        AudioError = audioError;
         _thread = new Thread(Run) { IsBackground = true, Name = "NES Emulation", Priority = ThreadPriority.AboveNormal };
         _thread.Start();
     }
@@ -40,6 +45,28 @@ public sealed class EmulatorHost : IDisposable
     public NesBus Bus { get; } = new();
 
     public Ppu2C02 Ppu { get; }
+
+    public Apu2A03 Apu { get; }
+
+    /// <summary>音频设备；初始化失败时为 null（模拟照常运行，仅无声）。</summary>
+    public AudioOutput? Audio { get; }
+
+    public string? AudioError { get; }
+
+    public bool Muted
+    {
+        get => Audio?.Muted ?? true;
+        set
+        {
+            if (Audio is not null) Audio.Muted = value;
+        }
+    }
+
+    public float Volume
+    {
+        get => Apu.Synth.Volume;
+        set => Apu.Synth.Volume = Math.Clamp(value, 0f, 1f);
+    }
 
     public RomImage? Rom { get; private set; }
 
@@ -171,6 +198,9 @@ public sealed class EmulatorHost : IDisposable
                 {
                     Bus.RunFrame();
                     if (Bus.Cpu.Jammed) Pause();
+                    // 非 1x 速度时丢弃音频，避免变调与积压
+                    var discard = Math.Abs(Speed - 1.0) > 0.001;
+                    Audio?.Submit(Apu.Synth, discard);
                 }
             }
             catch (Exception ex)
@@ -219,5 +249,6 @@ public sealed class EmulatorHost : IDisposable
         _disposed = true;
         _wake.Set();
         _thread.Join(500);
+        Audio?.Dispose();
     }
 }

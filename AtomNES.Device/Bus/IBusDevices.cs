@@ -24,6 +24,14 @@ public interface ICpuBus
 
     /// <summary>取出 OAM DMA 请求，返回源页号。</summary>
     byte TakeOamDma();
+
+    /// <summary>DMC 是否请求 DMA 取样本。</summary>
+    bool DmcDmaPending => false;
+
+    /// <summary>在 DMA 周期内执行 DMC 取数（本身占用一次读周期）。</summary>
+    void RunDmcDma()
+    {
+    }
 }
 
 /// <summary>
@@ -58,6 +66,8 @@ public interface IPpuDevice
 /// </summary>
 public interface IApuDevice
 {
+    void PowerOn();
+
     void Reset();
 
     /// <summary>按 CPU 时钟驱动。</summary>
@@ -69,6 +79,13 @@ public interface IApuDevice
 
     /// <summary>帧计数器 / DMC 的 IRQ 电平。</summary>
     bool IrqActive { get; }
+
+    /// <summary>DMC 样本缓冲为空，需要 DMA 读取。</summary>
+    bool DmaRequest { get; }
+
+    ushort DmaAddress { get; }
+
+    void CompleteDma(byte value);
 }
 
 /// <summary>

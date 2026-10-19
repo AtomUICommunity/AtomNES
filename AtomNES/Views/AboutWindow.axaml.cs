@@ -19,6 +19,7 @@ public partial class AboutWindow : Window
             new LibraryRow("AtomUI.Fonts.AlibabaSans", VersionOf("AtomUI.Fonts.AlibabaSans"), true),
             new LibraryRow("Avalonia", VersionOf("Avalonia.Base")),
             new LibraryRow("CommunityToolkit.Mvvm", VersionOf("CommunityToolkit.Mvvm")),
+            new LibraryRow("SDL3 (ppy.SDL3-cs)", VersionOf("SDL3-CS")),
             new LibraryRow(".NET", Environment.Version.ToString(3)),
         };
     }

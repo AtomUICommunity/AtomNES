@@ -65,6 +65,7 @@ public sealed class Cpu6502
     private bool _prevRunIrq;
 
     private bool _inDma;
+    private bool _inDmcDma;
 
     public Cpu6502(ICpuBus bus)
     {
@@ -141,9 +142,30 @@ public sealed class Cpu6502
             RunOamDma(address);
         }
 
+        if (!_inDmcDma && _bus.DmcDmaPending)
+        {
+            RunDmcDma(address);
+        }
+
         var value = _bus.Read(address);
         EndCycle();
         return value;
+    }
+
+    /// <summary>DMC DMA：挂起 CPU 读周期，停顿 + 虚读 +（需要时）对齐，共 3~4 周期。</summary>
+    private void RunDmcDma(ushort haltAddress)
+    {
+        _inDmcDma = true;
+        DummyRead(haltAddress);
+        DummyRead(haltAddress);
+        if ((_cycles & 1) != 0)
+        {
+            DummyRead(haltAddress);
+        }
+
+        _bus.RunDmcDma();
+        EndCycle();
+        _inDmcDma = false;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

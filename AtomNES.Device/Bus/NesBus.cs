@@ -94,7 +94,7 @@ public sealed class NesBus : ICpuBus
         Controller2.Reset();
         Cartridge?.Reset();
         Ppu?.PowerOn();
-        Apu?.Reset();
+        Apu?.PowerOn();
         Cpu.PowerOn();
     }
 
@@ -180,6 +180,14 @@ public sealed class NesBus : ICpuBus
     {
         _oamDmaPending = false;
         return _oamDmaPage;
+    }
+
+    public bool DmcDmaPending => Apu?.DmaRequest ?? false;
+
+    public void RunDmcDma()
+    {
+        var apu = Apu!;
+        apu.CompleteDma(Read(apu.DmaAddress));
     }
 
     public byte Read(ushort address)

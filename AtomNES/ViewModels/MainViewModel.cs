@@ -22,6 +22,11 @@ public partial class MainViewModel : ViewModelBase, IDisposable
         _statusTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(500), DispatcherPriority.Background,
             (_, _) => Fps = Host.MeasuredFps);
         _statusTimer.Start();
+        Host.Volume = (float)Volume;
+        if (Host.Audio is null)
+        {
+            Dispatcher.UIThread.Post(() => ShowMessage?.Invoke($"音频设备初始化失败，将静音运行：{Host.AudioError}", MessageType.Warning));
+        }
     }
 
     public EmulatorHost Host { get; } = new();
@@ -48,6 +53,15 @@ public partial class MainViewModel : ViewModelBase, IDisposable
     [ObservableProperty] private double _fps;
     [ObservableProperty] private ScreenScaleMode _scaleMode = ScreenScaleMode.X2;
     [ObservableProperty] private double _speed = 1.0;
+    [ObservableProperty] private bool _isMuted;
+    [ObservableProperty] private double _volume = 0.8;
+
+    partial void OnIsMutedChanged(bool value) => Host.Muted = value;
+
+    partial void OnVolumeChanged(double value) => Host.Volume = (float)value;
+
+    [RelayCommand]
+    private void SetVolume(string value) => Volume = double.Parse(value, System.Globalization.CultureInfo.InvariantCulture);
 
     public string StateText => !IsLoaded ? "空闲" : IsPaused ? "已暂停" : "运行中";
 
