@@ -7,7 +7,7 @@
 /// <item>采用 Sharp MMC3 行为：计数器为 0 或请求重载时装入锁存值，装入/递减后为 0 且使能则触发 IRQ。</item>
 /// </list>
 /// </summary>
-public class Mmc3(RomImage rom) : Mapper(rom)
+public class Mmc3(RomImage rom, int extraChrRam = 0) : Mapper(rom, extraChrRam)
 {
     protected readonly int[] Registers = new int[8];
     protected int BankSelect;
@@ -92,20 +92,29 @@ public class Mmc3(RomImage rom) : Mapper(rom)
 
     protected virtual void UpdateBanks()
     {
+        UpdatePrgBanks();
+        UpdateChrBanks();
+    }
+
+    protected virtual void UpdatePrgBanks()
+    {
         if ((BankSelect & 0x40) == 0)
         {
-            SetPrg8K(0, Registers[6]);
-            SetPrg8K(2, -2);
+            SetPrgBank(0, Registers[6]);
+            SetPrgBank(2, -2);
         }
         else
         {
-            SetPrg8K(0, -2);
-            SetPrg8K(2, Registers[6]);
+            SetPrgBank(0, -2);
+            SetPrgBank(2, Registers[6]);
         }
 
-        SetPrg8K(1, Registers[7]);
-        SetPrg8K(3, -1);
+        SetPrgBank(1, Registers[7]);
+        SetPrgBank(3, -1);
+    }
 
+    protected virtual void UpdateChrBanks()
+    {
         var inv = (BankSelect & 0x80) != 0 ? 4 : 0;
         SetChrBank(0 ^ inv, Registers[0] & 0xFE);
         SetChrBank(1 ^ inv, Registers[0] | 1);
@@ -116,6 +125,9 @@ public class Mmc3(RomImage rom) : Mapper(rom)
         SetChrBank(6 ^ inv, Registers[4]);
         SetChrBank(7 ^ inv, Registers[5]);
     }
+
+    /// <summary>设置 8KB PRG 槽（负数表示从末尾倒数的固定页），派生类可改写以加入外部页等。</summary>
+    protected virtual void SetPrgBank(int slot, int bank) => SetPrg8K(slot, bank);
 
     /// <summary>设置 1KB CHR 槽，派生类可改写（例如 Mapper 74 的 CHR RAM 页）。</summary>
     protected virtual void SetChrBank(int slot, int bank) => SetChr1K(slot, bank);

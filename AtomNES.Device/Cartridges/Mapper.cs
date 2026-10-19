@@ -19,15 +19,33 @@ public abstract class Mapper : ICartridgeDevice
     private readonly int[] _chrPages = new int[8];
     private readonly int[] _ntPages = new int[4];
 
-    protected Mapper(RomImage rom)
+    protected Mapper(RomImage rom, int extraChrRam = 0)
     {
         Rom = rom;
         Prg = rom.Prg;
-        Chr = rom.Chr;
+        if (extraChrRam > 0)
+        {
+            // 板载 CHR RAM 附加在 CHR ROM 之后，通过 SetChrRam1K 映射
+            ChrRomSize = rom.Chr.Length;
+            Chr = new byte[rom.Chr.Length + extraChrRam];
+            rom.Chr.CopyTo(Chr, 0);
+        }
+        else
+        {
+            ChrRomSize = rom.Chr.Length;
+            Chr = rom.Chr;
+        }
+
         PrgRam = new byte[Math.Max(rom.PrgRamSize, 0x2000)];
         Ciram = new byte[rom.Mirroring == Mirroring.FourScreen ? 0x1000 : 0x800];
+        Array.Fill(_chrWritable, rom.HasChrRam);
         SetMirroring(rom.Mirroring);
     }
+
+    /// <summary>CHR ROM（或卡带自带 CHR RAM）部分的大小，不含附加 CHR RAM。</summary>
+    protected readonly int ChrRomSize;
+
+    private readonly bool[] _chrWritable = new bool[8];
 
     public virtual bool IrqActive => false;
 
@@ -39,7 +57,7 @@ public abstract class Mapper : ICartridgeDevice
 
     protected int PrgBankCount8K => Math.Max(1, Prg.Length / 0x2000);
 
-    protected int ChrBankCount1K => Math.Max(1, Chr.Length / 0x400);
+    protected int ChrBankCount1K => Math.Max(1, ChrRomSize / 0x400);
 
     /// <summary>映射 8KB PRG 页到 $8000 + slot*$2000。负数 bank 从末尾倒数。</summary>
     protected void SetPrg8K(int slot, int bank)
@@ -65,6 +83,15 @@ public abstract class Mapper : ICartridgeDevice
         var count = ChrBankCount1K;
         bank = ((bank % count) + count) % count;
         _chrPages[slot] = bank * 0x400;
+        _chrWritable[slot] = Rom.HasChrRam;
+    }
+
+    /// <summary>映射附加 CHR RAM 的第 page 个 1KB 页到 slot。</summary>
+    protected void SetChrRam1K(int slot, int page)
+    {
+        var count = Math.Max(1, (Chr.Length - ChrRomSize) / 0x400);
+        _chrPages[slot] = ChrRomSize + (page % count) * 0x400;
+        _chrWritable[slot] = true;
     }
 
     protected void SetChr4K(int slot, int bank)
@@ -200,7 +227,7 @@ public abstract class Mapper : ICartridgeDevice
         if (address < 0x2000)
         {
             OnPpuAddress(address);
-            if (Rom.HasChrRam)
+            if (_chrWritable[address >> 10])
             {
                 Chr[_chrPages[address >> 10] + (address & 0x3FF)] = value;
             }

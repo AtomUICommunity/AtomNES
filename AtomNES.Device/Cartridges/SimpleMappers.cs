@@ -44,7 +44,14 @@ public static class MapperFactory
             11 => new ColorDreams(rom),
             34 => new Mapper34(rom),
             66 => new Gxrom(rom),
+            15 => new Mapper15(rom),
+            74 => new Mapper74(rom),
+            112 => new Mapper112(rom),
+            115 => new Mapper115(rom),
             180 => new Unrom180(rom),
+            241 => new Mapper241(rom),
+            245 => new Mapper245(rom),
+            249 => new Mapper249(rom),
             _ => throw new NotSupportedException($"暂不支持 Mapper {rom.MapperId}。")
         };
         mapper.Reset();
