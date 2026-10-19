@@ -13,6 +13,9 @@ namespace AtomNES.Device.Tests;
 /// </summary>
 public class LocalRomLibraryTests(ITestOutputHelper output)
 {
+    /// <summary>已用 Mesen 确认本身有问题的 ROM（见 AGENTS.md），不参与测试。</summary>
+    private static readonly string[] KnownBadRoms = ["[031]", "[032]", "[039]", "[040]", "[042]", "[059]", "[229]"];
+
     [Fact]
     public void SupportedRoms_RunWithoutJam()
     {
@@ -22,6 +25,7 @@ public class LocalRomLibraryTests(ITestOutputHelper output)
         var failures = new List<string>();
         var count = 0;
         var samples = Directory.EnumerateFiles(dir, "*.nes", SearchOption.AllDirectories)
+            .Where(f => !KnownBadRoms.Any(b => Path.GetFileName(f).StartsWith(b)))
             .Select(f => (File: f, Rom: TryLoad(f)))
             .Where(x => x.Rom is not null)
             .GroupBy(x => x.Rom!.MapperId)
