@@ -1,12 +1,12 @@
 using System.Linq;
-using AtomUI.Theme.Algorithms;
-using AtomUI.Theme.Configuration;
 using AtomNES.ViewModels;
 using AtomNES.Views;
 using AtomUI;
 using AtomUI.Desktop.Controls;
 using AtomUI.Localization;
 using AtomUI.Theme;
+using AtomUI.Theme.Algorithms;
+using AtomUI.Theme.Configuration;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -20,12 +20,21 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
         this.UseAtomUI(builder =>
         {
+            builder.UseLanguages(LanguageTags.ZhCN, [LanguageTags.ZhCN, LanguageTags.EnUS]);
             builder.WithFollowSystemThemes(
-                new ThemeRequest(IThemeManager.DEFAULT_THEME_ID, null, ThemeTransitionReason.Startup),
                 new ThemeRequest(
                     IThemeManager.DEFAULT_THEME_ID,
-                    new ThemeConfigBuilder().WithAlgorithms(ThemeAlgorithm.Default, ThemeAlgorithm.Dark).Build(),
-                    ThemeTransitionReason.Startup));
+                    null,
+                    ThemeTransitionReason.Startup
+                ),
+                new ThemeRequest(
+                    IThemeManager.DEFAULT_THEME_ID,
+                    new ThemeConfigBuilder()
+                        .WithAlgorithms(ThemeAlgorithm.Default, ThemeAlgorithm.Dark)
+                        .Build(),
+                    ThemeTransitionReason.Startup
+                )
+            );
             builder.UseAlibabaSansFont();
             builder.UseDesktopControls();
             builder.UseDesktopColorPicker();
@@ -37,6 +46,7 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            Localization.Lang.Attach();
             var vm = new MainViewModel();
             desktop.MainWindow = new MainWindow { DataContext = vm };
             if (desktop.Args is [var romPath, ..] && System.IO.File.Exists(romPath))
@@ -44,7 +54,8 @@ public partial class App : Application
                 desktop.MainWindow.Opened += (_, _) =>
                 {
                     vm.LoadRom(romPath);
-                    if (desktop.Args.Contains("--debug")) vm.ShowDebuggerCommand.Execute(null);
+                    if (desktop.Args.Contains("--debug"))
+                        vm.ShowDebuggerCommand.Execute(null);
                 };
             }
         }
@@ -52,4 +63,3 @@ public partial class App : Application
         base.OnFrameworkInitializationCompleted();
     }
 }
-

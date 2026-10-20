@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using AtomNES.Controls;
 using AtomNES.Device.Display;
+using AtomNES.Localization;
 using AtomNES.Services;
 using AtomUI.Desktop.Controls;
 using Avalonia.Threading;
@@ -18,14 +19,15 @@ public partial class MainViewModel : ViewModelBase, IDisposable
     public MainViewModel()
     {
         Host.StateChanged += () => Dispatcher.UIThread.Post(RefreshState);
-        Host.Faulted += ex => Dispatcher.UIThread.Post(() => ShowMessage?.Invoke($"模拟异常：{ex.Message}", MessageType.Error));
+        Host.Faulted += ex => Dispatcher.UIThread.Post(() => ShowMessage?.Invoke(Lang.Format(AppLangResourceKind.MsgEmuError, ex.Message), MessageType.Error));
+        Lang.Changed += (_, _) => OnPropertyChanged(nameof(StateText));
         _statusTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(500), DispatcherPriority.Background,
             (_, _) => Fps = Host.MeasuredFps);
         _statusTimer.Start();
         Host.Volume = (float)Volume;
         if (Host.Audio is null)
         {
-            Dispatcher.UIThread.Post(() => ShowMessage?.Invoke($"音频设备初始化失败，将静音运行：{Host.AudioError}", MessageType.Warning));
+            Dispatcher.UIThread.Post(() => ShowMessage?.Invoke(Lang.Format(AppLangResourceKind.MsgAudioFailed, Host.AudioError), MessageType.Warning));
         }
     }
 
@@ -64,7 +66,11 @@ public partial class MainViewModel : ViewModelBase, IDisposable
     [RelayCommand]
     private void SetVolume(string value) => Volume = double.Parse(value, System.Globalization.CultureInfo.InvariantCulture);
 
-    public string StateText => !IsLoaded ? "空闲" : IsPaused ? "已暂停" : "运行中";
+    public string StateText => Lang.Get(!IsLoaded ? AppLangResourceKind.StateIdle
+        : IsPaused ? AppLangResourceKind.StatePaused : AppLangResourceKind.StateRunning);
+
+    [RelayCommand]
+    private void SetLanguage(string tag) => Lang.Change(AtomUI.Localization.LanguageTag.Parse(tag));
 
     partial void OnIsLoadedChanged(bool value) => OnPropertyChanged(nameof(StateText));
 
@@ -96,15 +102,28 @@ public partial class MainViewModel : ViewModelBase, IDisposable
             RomName = Path.GetFileNameWithoutExtension(path);
             MapperText = $"Mapper {rom.MapperId:D3}";
             RefreshState();
-            ShowMessage?.Invoke($"已加载：{RomName}", MessageType.Success);
+            ShowMessage?.Invoke(Lang.Format(AppLangResourceKind.MsgLoaded, RomName), MessageType.Success);
         }
         catch (NotSupportedException)
         {
-            ShowMessage?.Invoke("暂不支持该 ROM 的 Mapper", MessageType.Warning);
+            var id = TryReadMapperId(path);
+            ShowMessage?.Invoke(Lang.Format(AppLangResourceKind.MsgUnsupportedMapper, id), MessageType.Warning);
         }
         catch (Exception ex)
         {
-            ShowMessage?.Invoke($"加载失败：{ex.Message}", MessageType.Error);
+            ShowMessage?.Invoke(Lang.Format(AppLangResourceKind.MsgLoadFailed, ex.Message), MessageType.Error);
+        }
+    }
+
+    private static string TryReadMapperId(string path)
+    {
+        try
+        {
+            return AtomNES.Device.Cartridges.RomImage.Load(path).MapperId.ToString();
+        }
+        catch
+        {
+            return "?";
         }
     }
 

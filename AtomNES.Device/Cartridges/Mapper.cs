@@ -47,6 +47,9 @@ public abstract class Mapper : ICartridgeDevice
 
     private readonly bool[] _chrWritable = new bool[8];
 
+    /// <summary>带电池的卡带返回需要持久化的 PRG RAM，否则为 null。</summary>
+    public byte[]? BatteryRam => Rom.HasBattery ? PrgRam : null;
+
     /// <summary>卡带 IRQ 线电平，供带 CPU 周期计数器的 Mapper 使用。</summary>
     protected bool IrqAsserted;
 

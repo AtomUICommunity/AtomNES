@@ -1,9 +1,10 @@
-﻿<atom:Window xmlns="https://github.com/avaloniaui"
+<atom:Window xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:atom="https://atomui.net"
     xmlns:v="using:AtomNES.Views"
+    xmlns:l="using:AtomNES.Localization"
     x:Class="AtomNES.Views.AboutWindow"
-    Title="关于 AtomNES" Width="500" SizeToContent="Height" CanResize="False"
+    Title="{l:AppLangResource MenuAbout}" Width="500" SizeToContent="Height" CanResize="False"
     Icon="/Assets/AtomNES.ico"
     WindowStartupLocation="CenterOwner">
     <atom:Window.Logo>
@@ -17,15 +18,15 @@
         </StackPanel>
         <atom:TextBlock TextWrapping="Wrap" TextAlignment="Center"
                         Foreground="{atom:SharedTokenResource ColorTextSecondary}"
-                        Text="基于 AtomUI 生态构建的跨平台 NES（FC）模拟器。周期精确的 6502 CPU 与逐点 PPU，通过 nestest 及 blargg 系列测试 ROM 验证，界面完全由 AtomUI 组件打造。" />
+                        Text="{l:AppLangResource AboutDescription}" />
         <atom:Separator Margin="0" />
-        <atom:Card Header="依赖库">
+        <atom:Card Header="{l:AppLangResource AboutDependencies}">
             <ItemsControl x:Name="LibraryList">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="v:LibraryRow">
                         <Grid ColumnDefinitions="*,Auto,Auto" MinHeight="28">
                             <atom:TextBlock Text="{Binding Name}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
-                            <atom:Tag Grid.Column="1" Text="AtomUI 生态" TagColor="geekblue" IsVisible="{Binding IsAtom}" Margin="8,0" VerticalAlignment="Center" />
+                            <atom:Tag Grid.Column="1" Text="{l:AppLangResource AboutAtomEcosystem}" TagColor="geekblue" IsVisible="{Binding IsAtom}" Margin="8,0" VerticalAlignment="Center" />
                             <atom:Tag Grid.Column="2" Text="{Binding Version}" Margin="0" VerticalAlignment="Center" />
                         </Grid>
                     </DataTemplate>

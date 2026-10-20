@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using AtomNES.Device.Audio;
 using AtomNES.Device.Bus;
@@ -95,24 +96,58 @@ public sealed class EmulatorHost : IDisposable
     {
         var rom = RomImage.Load(path);
         var mapper = MapperFactory.Create(rom);
+        SaveBattery();
+        LoadBattery(mapper, path);
         lock (SyncRoot)
         {
             Bus.InsertCartridge(mapper);
             Screen.Clear();
             Rom = rom;
             RomPath = path;
+            _mapper = mapper;
         }
 
         Resume();
     }
 
+    private Mapper? _mapper;
+
+    private static string SavePath(string romPath) => Path.ChangeExtension(romPath, ".sav");
+
+    private static void LoadBattery(Mapper mapper, string romPath)
+    {
+        if (mapper.BatteryRam is not { } ram || !File.Exists(SavePath(romPath))) return;
+        var data = File.ReadAllBytes(SavePath(romPath));
+        Array.Copy(data, ram, Math.Min(data.Length, ram.Length));
+    }
+
+    /// <summary>把电池存档写回 ROM 同目录的 .sav 文件。</summary>
+    public void SaveBattery()
+    {
+        if (_mapper?.BatteryRam is not { } ram || RomPath is null) return;
+        try
+        {
+            byte[] copy;
+            lock (SyncRoot) copy = (byte[])ram.Clone();
+            File.WriteAllBytes(SavePath(RomPath), copy);
+        }
+        catch (IOException)
+        {
+        }
+        catch (UnauthorizedAccessException)
+        {
+        }
+    }
+
     public void Unload()
     {
+        SaveBattery();
         lock (SyncRoot)
         {
             Bus.RemoveCartridge();
             Rom = null;
             RomPath = null;
+            _mapper = null;
             Screen.Clear();
         }
 
@@ -249,6 +284,7 @@ public sealed class EmulatorHost : IDisposable
         _disposed = true;
         _wake.Set();
         _thread.Join(500);
+        SaveBattery();
         Audio?.Dispose();
     }
 }

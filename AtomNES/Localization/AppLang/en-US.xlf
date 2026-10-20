@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="2.1" srcLang="en-US" xmlns="urn:oasis:names:tc:xliff:document:2.0">
+  <file id="AtomNES.Localization.AppLangResourceKind">
+    <unit id="MenuFile">
+      <segment>
+        <source>File</source>
+      </segment>
+    </unit>
+    <unit id="MenuOpenRom">
+      <segment>
+        <source>Open ROM…</source>
+      </segment>
+    </unit>
+    <unit id="MenuCloseRom">
+      <segment>
+        <source>Close ROM</source>
+      </segment>
+    </unit>
+    <unit id="MenuExit">
+      <segment>
+        <source>Exit</source>
+      </segment>
+    </unit>
+    <unit id="MenuControl">
+      <segment>
+        <source>Control</source>
+      </segment>
+    </unit>
+    <unit id="MenuPause">
+      <segment>
+        <source>Pause / Resume</source>
+      </segment>
+    </unit>
+    <unit id="MenuReset">
+      <segment>
+        <source>Reset</source>
+      </segment>
+    </unit>
+    <unit id="MenuPower">
+      <segment>
+        <source>Power Cycle</source>
+      </segment>
+    </unit>
+    <unit id="MenuSpeed">
+      <segment>
+        <source>Speed</source>
+      </segment>
+    </unit>
+    <unit id="MenuVolume">
+      <segment>
+        <source>Volume</source>
+      </segment>
+    </unit>
+    <unit id="VolumeMute">
+      <segment>
+        <source>0% (Mute)</source>
+      </segment>
+    </unit>
+    <unit id="MenuTools">
+      <segment>
+        <source>Tools</source>
+      </segment>
+    </unit>
+    <unit id="MenuScale">
+      <segment>
+        <source>Screen Size</source>
+      </segment>
+    </unit>
+    <unit id="MenuDebugger">
+      <segment>
+        <source>Debugger</source>
+      </segment>
+    </unit>
+    <unit id="MenuHelp">
+      <segment>
+        <source>Help</source>
+      </segment>
+    </unit>
+    <unit id="MenuKeyMap">
+      <segment>
+        <source>Key Bindings</source>
+      </segment>
+    </unit>
+    <unit id="MenuLanguage">
+      <segment>
+        <source>Language</source>
+      </segment>
+    </unit>
+    <unit id="MenuAbout">
+      <segment>
+        <source>About AtomNES</source>
+      </segment>
+    </unit>
+    <unit id="StateIdle">
+      <segment>
+        <source>Idle</source>
+      </segment>
+    </unit>
+    <unit id="StatePaused">
+      <segment>
+        <source>Paused</source>
+      </segment>
+    </unit>
+    <unit id="StateRunning">
+      <segment>
+        <source>Running</source>
+      </segment>
+    </unit>
+    <unit id="MsgEmuError">
+      <segment>
+        <source>Emulation error: {0}</source>
+      </segment>
+    </unit>
+    <unit id="MsgAudioFailed">
+      <segment>
+        <source>Audio device initialization failed, running muted: {0}</source>
+      </segment>
+    </unit>
+    <unit id="MsgLoaded">
+      <segment>
+        <source>Loaded: {0}</source>
+      </segment>
+    </unit>
+    <unit id="MsgUnsupportedMapper">
+      <segment>
+        <source>Mapper {0} is not supported yet</source>
+      </segment>
+    </unit>
+    <unit id="MsgLoadFailed">
+      <segment>
+        <source>Failed to load: {0}</source>
+      </segment>
+    </unit>
+    <unit id="OpenRomDialogTitle">
+      <segment>
+        <source>Open NES ROM</source>
+      </segment>
+    </unit>
+    <unit id="KeyMapPlayer1">
+      <segment>
+        <source>Player 1</source>
+      </segment>
+    </unit>
+    <unit id="KeyMapPlayer2">
+      <segment>
+        <source>Player 2</source>
+      </segment>
+    </unit>
+    <unit id="KeyMapHotkeys">
+      <segment>
+        <source>Hotkeys</source>
+      </segment>
+    </unit>
+    <unit id="ButtonUp">
+      <segment>
+        <source>Up</source>
+      </segment>
+    </unit>
+    <unit id="ButtonDown">
+      <segment>
+        <source>Down</source>
+      </segment>
+    </unit>
+    <unit id="ButtonLeft">
+      <segment>
+        <source>Left</source>
+      </segment>
+    </unit>
+    <unit id="ButtonRight">
+      <segment>
+        <source>Right</source>
+      </segment>
+    </unit>
+    <unit id="KeyRightCtrl">
+      <segment>
+        <source>Right Ctrl</source>
+      </segment>
+    </unit>
+    <unit id="KeyNumPad">
+      <segment>
+        <source>Numpad</source>
+      </segment>
+    </unit>
+    <unit id="AboutDescription">
+      <segment>
+        <source>A cross-platform NES (Famicom) emulator built on the AtomUI ecosystem. Cycle-accurate 6502 CPU and dot-accurate PPU, verified with nestest and the blargg test ROM suites; the UI is built entirely with AtomUI controls.</source>
+      </segment>
+    </unit>
+    <unit id="AboutDependencies">
+      <segment>
+        <source>Dependencies</source>
+      </segment>
+    </unit>
+    <unit id="AboutAtomEcosystem">
+      <segment>
+        <source>AtomUI Ecosystem</source>
+      </segment>
+    </unit>
+    <unit id="DebuggerTitle">
+      <segment>
+        <source>AtomNES Debugger</source>
+      </segment>
+    </unit>
+    <unit id="DbgStepInstruction">
+      <segment>
+        <source>Step Instruction</source>
+      </segment>
+    </unit>
+    <unit id="DbgStepScanline">
+      <segment>
+        <source>Step Scanline</source>
+      </segment>
+    </unit>
+    <unit id="DbgStepFrame">
+      <segment>
+        <source>Step Frame</source>
+      </segment>
+    </unit>
+    <unit id="DbgReset">
+      <segment>
+        <source>Reset</source>
+      </segment>
+    </unit>
+    <unit id="DbgRefresh">
+      <segment>
+        <source>Refresh</source>
+      </segment>
+    </unit>
+    <unit id="DbgAutoRefresh">
+      <segment>
+        <source>Auto refresh while running</source>
+      </segment>
+    </unit>
+    <unit id="DbgDisassembly">
+      <segment>
+        <source>Disassembly</source>
+      </segment>
+    </unit>
+    <unit id="DbgRegisters">
+      <segment>
+        <source>Registers</source>
+      </segment>
+    </unit>
+    <unit id="DbgFlags">
+      <segment>
+        <source>Status Flags (P)</source>
+      </segment>
+    </unit>
+    <unit id="DbgPatternTables">
+      <segment>
+        <source>Pattern Tables</source>
+      </segment>
+    </unit>
+    <unit id="DbgPaletteRam">
+      <segment>
+        <source>Palette RAM</source>
+      </segment>
+    </unit>
+    <unit id="DbgPpuState">
+      <segment>
+        <source>PPU State</source>
+      </segment>
+    </unit>
+    <unit id="DbgNametables">
+      <segment>
+        <source>Nametables</source>
+      </segment>
+    </unit>
+    <unit id="DbgContinue">
+      <segment>
+        <source>Continue</source>
+      </segment>
+    </unit>
+    <unit id="DbgPause">
+      <segment>
+        <source>Pause</source>
+      </segment>
+    </unit>
+    <unit id="DbgScanline">
+      <segment>
+        <source>Scanline</source>
+      </segment>
+    </unit>
+    <unit id="DbgDot">
+      <segment>
+        <source>Dot</source>
+      </segment>
+    </unit>
+    <unit id="DbgFrame">
+      <segment>
+        <source>Frame</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>

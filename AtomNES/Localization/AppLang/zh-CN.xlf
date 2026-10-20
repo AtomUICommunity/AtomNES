@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="2.1" srcLang="en-US" trgLang="zh-CN" xmlns="urn:oasis:names:tc:xliff:document:2.0">
+  <file id="AtomNES.Localization.AppLangResourceKind">
+    <unit id="MenuFile">
+      <segment>
+        <source>File</source>
+        <target state="translated">文件</target>
+      </segment>
+    </unit>
+    <unit id="MenuOpenRom">
+      <segment>
+        <source>Open ROM…</source>
+        <target state="translated">打开 ROM…</target>
+      </segment>
+    </unit>
+    <unit id="MenuCloseRom">
+      <segment>
+        <source>Close ROM</source>
+        <target state="translated">关闭 ROM</target>
+      </segment>
+    </unit>
+    <unit id="MenuExit">
+      <segment>
+        <source>Exit</source>
+        <target state="translated">退出</target>
+      </segment>
+    </unit>
+    <unit id="MenuControl">
+      <segment>
+        <source>Control</source>
+        <target state="translated">控制</target>
+      </segment>
+    </unit>
+    <unit id="MenuPause">
+      <segment>
+        <source>Pause / Resume</source>
+        <target state="translated">暂停 / 继续</target>
+      </segment>
+    </unit>
+    <unit id="MenuReset">
+      <segment>
+        <source>Reset</source>
+        <target state="translated">复位 (Reset)</target>
+      </segment>
+    </unit>
+    <unit id="MenuPower">
+      <segment>
+        <source>Power Cycle</source>
+        <target state="translated">重新上电 (Power)</target>
+      </segment>
+    </unit>
+    <unit id="MenuSpeed">
+      <segment>
+        <source>Speed</source>
+        <target state="translated">速度</target>
+      </segment>
+    </unit>
+    <unit id="MenuVolume">
+      <segment>
+        <source>Volume</source>
+        <target state="translated">音量</target>
+      </segment>
+    </unit>
+    <unit id="VolumeMute">
+      <segment>
+        <source>0% (Mute)</source>
+        <target state="translated">0%（静音）</target>
+      </segment>
+    </unit>
+    <unit id="MenuTools">
+      <segment>
+        <source>Tools</source>
+        <target state="translated">工具</target>
+      </segment>
+    </unit>
+    <unit id="MenuScale">
+      <segment>
+        <source>Screen Size</source>
+        <target state="translated">画面尺寸</target>
+      </segment>
+    </unit>
+    <unit id="MenuDebugger">
+      <segment>
+        <source>Debugger</source>
+        <target state="translated">调试器</target>
+      </segment>
+    </unit>
+    <unit id="MenuHelp">
+      <segment>
+        <source>Help</source>
+        <target state="translated">帮助</target>
+      </segment>
+    </unit>
+    <unit id="MenuKeyMap">
+      <segment>
+        <source>Key Bindings</source>
+        <target state="translated">按键说明</target>
+      </segment>
+    </unit>
+    <unit id="MenuLanguage">
+      <segment>
+        <source>Language</source>
+        <target state="translated">语言</target>
+      </segment>
+    </unit>
+    <unit id="MenuAbout">
+      <segment>
+        <source>About AtomNES</source>
+        <target state="translated">关于 AtomNES</target>
+      </segment>
+    </unit>
+    <unit id="StateIdle">
+      <segment>
+        <source>Idle</source>
+        <target state="translated">空闲</target>
+      </segment>
+    </unit>
+    <unit id="StatePaused">
+      <segment>
+        <source>Paused</source>
+        <target state="translated">已暂停</target>
+      </segment>
+    </unit>
+    <unit id="StateRunning">
+      <segment>
+        <source>Running</source>
+        <target state="translated">运行中</target>
+      </segment>
+    </unit>
+    <unit id="MsgEmuError">
+      <segment>
+        <source>Emulation error: {0}</source>
+        <target state="translated">模拟异常：{0}</target>
+      </segment>
+    </unit>
+    <unit id="MsgAudioFailed">
+      <segment>
+        <source>Audio device initialization failed, running muted: {0}</source>
+        <target state="translated">音频设备初始化失败，将静音运行：{0}</target>
+      </segment>
+    </unit>
+    <unit id="MsgLoaded">
+      <segment>
+        <source>Loaded: {0}</source>
+        <target state="translated">已加载：{0}</target>
+      </segment>
+    </unit>
+    <unit id="MsgUnsupportedMapper">
+      <segment>
+        <source>Mapper {0} is not supported yet</source>
+        <target state="translated">暂不支持 Mapper {0}</target>
+      </segment>
+    </unit>
+    <unit id="MsgLoadFailed">
+      <segment>
+        <source>Failed to load: {0}</source>
+        <target state="translated">加载失败：{0}</target>
+      </segment>
+    </unit>
+    <unit id="OpenRomDialogTitle">
+      <segment>
+        <source>Open NES ROM</source>
+        <target state="translated">打开 NES ROM</target>
+      </segment>
+    </unit>
+    <unit id="KeyMapPlayer1">
+      <segment>
+        <source>Player 1</source>
+        <target state="translated">玩家 1</target>
+      </segment>
+    </unit>
+    <unit id="KeyMapPlayer2">
+      <segment>
+        <source>Player 2</source>
+        <target state="translated">玩家 2</target>
+      </segment>
+    </unit>
+    <unit id="KeyMapHotkeys">
+      <segment>
+        <source>Hotkeys</source>
+        <target state="translated">快捷键</target>
+      </segment>
+    </unit>
+    <unit id="ButtonUp">
+      <segment>
+        <source>Up</source>
+        <target state="translated">上</target>
+      </segment>
+    </unit>
+    <unit id="ButtonDown">
+      <segment>
+        <source>Down</source>
+        <target state="translated">下</target>
+      </segment>
+    </unit>
+    <unit id="ButtonLeft">
+      <segment>
+        <source>Left</source>
+        <target state="translated">左</target>
+      </segment>
+    </unit>
+    <unit id="ButtonRight">
+      <segment>
+        <source>Right</source>
+        <target state="translated">右</target>
+      </segment>
+    </unit>
+    <unit id="KeyRightCtrl">
+      <segment>
+        <source>Right Ctrl</source>
+        <target state="translated">右 Ctrl</target>
+      </segment>
+    </unit>
+    <unit id="KeyNumPad">
+      <segment>
+        <source>Numpad</source>
+        <target state="translated">小键盘</target>
+      </segment>
+    </unit>
+    <unit id="AboutDescription">
+      <segment>
+        <source>A cross-platform NES (Famicom) emulator built on the AtomUI ecosystem. Cycle-accurate 6502 CPU and dot-accurate PPU, verified with nestest and the blargg test ROM suites; the UI is built entirely with AtomUI controls.</source>
+        <target state="translated">基于 AtomUI 生态构建的跨平台 NES（FC）模拟器。周期精确的 6502 CPU 与逐点 PPU，通过 nestest 及 blargg 系列测试 ROM 验证，界面完全由 AtomUI 组件打造。</target>
+      </segment>
+    </unit>
+    <unit id="AboutDependencies">
+      <segment>
+        <source>Dependencies</source>
+        <target state="translated">依赖库</target>
+      </segment>
+    </unit>
+    <unit id="AboutAtomEcosystem">
+      <segment>
+        <source>AtomUI Ecosystem</source>
+        <target state="translated">AtomUI 生态</target>
+      </segment>
+    </unit>
+    <unit id="DebuggerTitle">
+      <segment>
+        <source>AtomNES Debugger</source>
+        <target state="translated">AtomNES 调试器</target>
+      </segment>
+    </unit>
+    <unit id="DbgStepInstruction">
+      <segment>
+        <source>Step Instruction</source>
+        <target state="translated">单步指令</target>
+      </segment>
+    </unit>
+    <unit id="DbgStepScanline">
+      <segment>
+        <source>Step Scanline</source>
+        <target state="translated">单步扫描线</target>
+      </segment>
+    </unit>
+    <unit id="DbgStepFrame">
+      <segment>
+        <source>Step Frame</source>
+        <target state="translated">单步帧</target>
+      </segment>
+    </unit>
+    <unit id="DbgReset">
+      <segment>
+        <source>Reset</source>
+        <target state="translated">复位</target>
+      </segment>
+    </unit>
+    <unit id="DbgRefresh">
+      <segment>
+        <source>Refresh</source>
+        <target state="translated">刷新</target>
+      </segment>
+    </unit>
+    <unit id="DbgAutoRefresh">
+      <segment>
+        <source>Auto refresh while running</source>
+        <target state="translated">运行时自动刷新</target>
+      </segment>
+    </unit>
+    <unit id="DbgDisassembly">
+      <segment>
+        <source>Disassembly</source>
+        <target state="translated">反汇编</target>
+      </segment>
+    </unit>
+    <unit id="DbgRegisters">
+      <segment>
+        <source>Registers</source>
+        <target state="translated">寄存器</target>
+      </segment>
+    </unit>
+    <unit id="DbgFlags">
+      <segment>
+        <source>Status Flags (P)</source>
+        <target state="translated">状态标志 (P)</target>
+      </segment>
+    </unit>
+    <unit id="DbgPatternTables">
+      <segment>
+        <source>Pattern Tables</source>
+        <target state="translated">图案表</target>
+      </segment>
+    </unit>
+    <unit id="DbgPaletteRam">
+      <segment>
+        <source>Palette RAM</source>
+        <target state="translated">调色板 RAM</target>
+      </segment>
+    </unit>
+    <unit id="DbgPpuState">
+      <segment>
+        <source>PPU State</source>
+        <target state="translated">PPU 状态</target>
+      </segment>
+    </unit>
+    <unit id="DbgNametables">
+      <segment>
+        <source>Nametables</source>
+        <target state="translated">名称表</target>
+      </segment>
+    </unit>
+    <unit id="DbgContinue">
+      <segment>
+        <source>Continue</source>
+        <target state="translated">继续</target>
+      </segment>
+    </unit>
+    <unit id="DbgPause">
+      <segment>
+        <source>Pause</source>
+        <target state="translated">暂停</target>
+      </segment>
+    </unit>
+    <unit id="DbgScanline">
+      <segment>
+        <source>Scanline</source>
+        <target state="translated">扫描线</target>
+      </segment>
+    </unit>
+    <unit id="DbgDot">
+      <segment>
+        <source>Dot</source>
+        <target state="translated">点</target>
+      </segment>
+    </unit>
+    <unit id="DbgFrame">
+      <segment>
+        <source>Frame</source>
+        <target state="translated">帧</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

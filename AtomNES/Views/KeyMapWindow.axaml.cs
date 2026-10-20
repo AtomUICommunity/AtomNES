@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AtomNES.Device.Input;
+using AtomNES.Localization;
 using AtomNES.Services;
 using Avalonia.Input;
 using Window = AtomUI.Desktop.Controls.Window;
@@ -26,10 +27,11 @@ public partial class KeyMapWindow : Window
         Player2List.ItemsSource = BuildRows(input.Player2);
         HotkeyList.ItemsSource = new[]
         {
-            new KeyMapRow("打开 ROM", "Ctrl + O"),
-            new KeyMapRow("暂停 / 继续", "F5"),
-            new KeyMapRow("复位 (Reset)", "F2"),
-            new KeyMapRow("调试器", "F8"),
+            new KeyMapRow(Lang.Get(AppLangResourceKind.MenuOpenRom).TrimEnd('…'), "Ctrl + O"),
+            new KeyMapRow(Lang.Get(AppLangResourceKind.MenuPause), "F5"),
+            new KeyMapRow(Lang.Get(AppLangResourceKind.MenuReset), "F2"),
+            new KeyMapRow(Lang.Get(AppLangResourceKind.MenuDebugger), "F8"),
+            new KeyMapRow(Lang.Get(AppLangResourceKind.MenuKeyMap), "F1"),
         };
     }
 
@@ -40,10 +42,10 @@ public partial class KeyMapWindow : Window
 
     private static string ButtonName(NesButtons b) => b switch
     {
-        NesButtons.Up => "上",
-        NesButtons.Down => "下",
-        NesButtons.Left => "左",
-        NesButtons.Right => "右",
+        NesButtons.Up => Lang.Get(AppLangResourceKind.ButtonUp),
+        NesButtons.Down => Lang.Get(AppLangResourceKind.ButtonDown),
+        NesButtons.Left => Lang.Get(AppLangResourceKind.ButtonLeft),
+        NesButtons.Right => Lang.Get(AppLangResourceKind.ButtonRight),
         _ => b.ToString()
     };
 
@@ -53,10 +55,10 @@ public partial class KeyMapWindow : Window
         Key.Down => "↓",
         Key.Left => "←",
         Key.Right => "→",
-        Key.RightCtrl => "右 Ctrl",
-        Key.Add => "小键盘 +",
-        Key.Subtract => "小键盘 -",
-        >= Key.NumPad0 and <= Key.NumPad9 => "小键盘 " + (k - Key.NumPad0),
+        Key.RightCtrl => Lang.Get(AppLangResourceKind.KeyRightCtrl),
+        Key.Add => Lang.Get(AppLangResourceKind.KeyNumPad) + " +",
+        Key.Subtract => Lang.Get(AppLangResourceKind.KeyNumPad) + " -",
+        >= Key.NumPad0 and <= Key.NumPad9 => Lang.Get(AppLangResourceKind.KeyNumPad) + " " + (k - Key.NumPad0),
         _ => k.ToString()
     };
 }

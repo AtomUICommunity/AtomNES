@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using AtomNES.Device.Cpu;
 using AtomNES.Device.Display;
+using AtomNES.Localization;
 using AtomNES.Services;
 using Avalonia;
 using Avalonia.Media.Imaging;
@@ -71,7 +72,7 @@ public partial class DebuggerViewModel : ViewModelBase, IDisposable
 
     public IReadOnlyList<Avalonia.Media.IBrush> PaletteBrushes { get; private set; } = [];
 
-    public string RunButtonText => IsPaused ? "继续" : "暂停";
+    public string RunButtonText => Lang.Get(IsPaused ? AppLangResourceKind.DbgContinue : AppLangResourceKind.DbgPause);
 
     partial void OnIsPausedChanged(bool value) => OnPropertyChanged(nameof(RunButtonText));
 
@@ -148,9 +149,9 @@ public partial class DebuggerViewModel : ViewModelBase, IDisposable
             ];
             PpuRegisters =
             [
-                new("扫描线", ppu.Scanline.ToString()),
-                new("点", ppu.Dot.ToString()),
-                new("帧", ppu.FrameNumber.ToString()),
+                new(Lang.Get(AppLangResourceKind.DbgScanline), ppu.Scanline.ToString()),
+                new(Lang.Get(AppLangResourceKind.DbgDot), ppu.Dot.ToString()),
+                new(Lang.Get(AppLangResourceKind.DbgFrame), ppu.FrameNumber.ToString()),
                 new("CTRL", $"${ppu.Ctrl:X2}"),
                 new("MASK", $"${ppu.Mask:X2}"),
                 new("V", $"${ppu.V:X4}"),

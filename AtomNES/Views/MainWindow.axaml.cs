@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AtomNES.Localization;
 using AtomNES.Services;
 using AtomNES.ViewModels;
 using AtomUI.Desktop.Controls;
@@ -73,6 +74,15 @@ public partial class MainWindow : Window
     {
         base.OnLoaded(e);
         _messages = new WindowMessageManager(this) { MaxItems = 3, Position = NotificationPosition.TopRight };
+        SyncLanguageItems();
+        Lang.Changed += (_, _) => SyncLanguageItems();
+    }
+
+    private void SyncLanguageItems()
+    {
+        var zh = Lang.Current == Lang.Chinese;
+        LangZhItem.IsChecked = zh;
+        LangEnItem.IsChecked = !zh;
     }
 
     protected override void OnClosed(EventArgs e)
@@ -89,7 +99,7 @@ public partial class MainWindow : Window
     {
         var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "打开 NES ROM",
+            Title = Lang.Get(AppLangResourceKind.OpenRomDialogTitle),
             AllowMultiple = false,
             FileTypeFilter = [new FilePickerFileType("NES ROM") { Patterns = ["*.nes", "*.NES"] }]
         });

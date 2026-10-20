@@ -1,9 +1,10 @@
-﻿<atom:Window xmlns="https://github.com/avaloniaui"
+<atom:Window xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:atom="https://atomui.net"
     xmlns:antdicons="https://atomui.net/icons/antdesign"
     xmlns:vm="using:AtomNES.ViewModels"
     xmlns:controls="using:AtomNES.Controls"
+    xmlns:l="using:AtomNES.Localization"
     x:Class="AtomNES.Views.MainWindow"
     x:DataType="vm:MainViewModel"
     Title="{Binding WindowTitle}" Width="586" SizeToContent="Height" CanResize="False"
@@ -16,55 +17,59 @@
     <DockPanel>
         <!-- 菜单栏 -->
         <atom:Menu DockPanel.Dock="Top" Focusable="False">
-            <atom:MenuItem Header="文件">
-                <atom:MenuItem Header="打开 ROM…" InputGesture="Ctrl+O" Command="{Binding OpenRomCommand}"
+            <atom:MenuItem Header="{l:AppLangResource MenuFile}">
+                <atom:MenuItem Header="{l:AppLangResource MenuOpenRom}" InputGesture="Ctrl+O" Command="{Binding OpenRomCommand}"
                                Icon="{antdicons:AntDesignIconProvider Kind=FolderOpenOutlined}" />
-                <atom:MenuItem Header="关闭 ROM" Command="{Binding UnloadRomCommand}" IsEnabled="{Binding IsLoaded}"
+                <atom:MenuItem Header="{l:AppLangResource MenuCloseRom}" Command="{Binding UnloadRomCommand}" IsEnabled="{Binding IsLoaded}"
                                Icon="{antdicons:AntDesignIconProvider Kind=CloseCircleOutlined}" />
                 <atom:MenuSeparator />
-                <atom:MenuItem Header="退出" Click="OnExitClick"
+                <atom:MenuItem Header="{l:AppLangResource MenuExit}" Click="OnExitClick"
                                Icon="{antdicons:AntDesignIconProvider Kind=PoweroffOutlined}" />
             </atom:MenuItem>
-            <atom:MenuItem Header="控制">
-                <atom:MenuItem Header="暂停 / 继续" InputGesture="F5" Command="{Binding TogglePauseCommand}" IsEnabled="{Binding IsLoaded}"
+            <atom:MenuItem Header="{l:AppLangResource MenuControl}">
+                <atom:MenuItem Header="{l:AppLangResource MenuPause}" InputGesture="F5" Command="{Binding TogglePauseCommand}" IsEnabled="{Binding IsLoaded}"
                                Icon="{antdicons:AntDesignIconProvider Kind=PauseCircleOutlined}" />
-                <atom:MenuItem Header="复位 (Reset)" InputGesture="F2" Command="{Binding ResetCommand}" IsEnabled="{Binding IsLoaded}"
+                <atom:MenuItem Header="{l:AppLangResource MenuReset}" InputGesture="F2" Command="{Binding ResetCommand}" IsEnabled="{Binding IsLoaded}"
                                Icon="{antdicons:AntDesignIconProvider Kind=ReloadOutlined}" />
-                <atom:MenuItem Header="重新上电 (Power)" Command="{Binding PowerCycleCommand}" IsEnabled="{Binding IsLoaded}"
+                <atom:MenuItem Header="{l:AppLangResource MenuPower}" Command="{Binding PowerCycleCommand}" IsEnabled="{Binding IsLoaded}"
                                Icon="{antdicons:AntDesignIconProvider Kind=ThunderboltOutlined}" />
                 <atom:MenuSeparator />
-                <atom:MenuItem Header="速度">
+                <atom:MenuItem Header="{l:AppLangResource MenuSpeed}">
                     <atom:MenuItem Header="0.5x" ToggleType="Radio" GroupName="Speed" Command="{Binding SetSpeedCommand}" CommandParameter="0.5" />
                     <atom:MenuItem Header="1x" ToggleType="Radio" GroupName="Speed" IsChecked="True" Command="{Binding SetSpeedCommand}" CommandParameter="1" />
                     <atom:MenuItem Header="2x" ToggleType="Radio" GroupName="Speed" Command="{Binding SetSpeedCommand}" CommandParameter="2" />
                     <atom:MenuItem Header="4x" ToggleType="Radio" GroupName="Speed" Command="{Binding SetSpeedCommand}" CommandParameter="4" />
                 </atom:MenuItem>
                 <atom:MenuSeparator />
-                <atom:MenuItem Header="音量" Icon="{antdicons:AntDesignIconProvider Kind=SoundOutlined}">
-                    <atom:MenuItem Header="0%（静音）" ToggleType="Radio" GroupName="Volume" Command="{Binding SetVolumeCommand}" CommandParameter="0" />
+                <atom:MenuItem Header="{l:AppLangResource MenuVolume}" Icon="{antdicons:AntDesignIconProvider Kind=SoundOutlined}">
+                    <atom:MenuItem Header="{l:AppLangResource VolumeMute}" ToggleType="Radio" GroupName="Volume" Command="{Binding SetVolumeCommand}" CommandParameter="0" />
                     <atom:MenuItem Header="25%" ToggleType="Radio" GroupName="Volume" Command="{Binding SetVolumeCommand}" CommandParameter="0.25" />
                     <atom:MenuItem Header="50%" ToggleType="Radio" GroupName="Volume" Command="{Binding SetVolumeCommand}" CommandParameter="0.5" />
                     <atom:MenuItem Header="80%" ToggleType="Radio" GroupName="Volume" IsChecked="True" Command="{Binding SetVolumeCommand}" CommandParameter="0.8" />
                     <atom:MenuItem Header="100%" ToggleType="Radio" GroupName="Volume" Command="{Binding SetVolumeCommand}" CommandParameter="1" />
                 </atom:MenuItem>
             </atom:MenuItem>
-            <atom:MenuItem Header="工具">
-                <atom:MenuItem Header="画面尺寸" Icon="{antdicons:AntDesignIconProvider Kind=ExpandOutlined}">
+            <atom:MenuItem Header="{l:AppLangResource MenuTools}">
+                <atom:MenuItem Header="{l:AppLangResource MenuScale}" Icon="{antdicons:AntDesignIconProvider Kind=ExpandOutlined}">
                     <atom:MenuItem Header="100%" ToggleType="Radio" GroupName="Scale" Command="{Binding SetScaleCommand}" CommandParameter="{x:Static controls:ScreenScaleMode.X1}" />
                     <atom:MenuItem Header="200%" ToggleType="Radio" GroupName="Scale" IsChecked="True" Command="{Binding SetScaleCommand}" CommandParameter="{x:Static controls:ScreenScaleMode.X2}" />
                     <atom:MenuItem Header="300%" ToggleType="Radio" GroupName="Scale" Command="{Binding SetScaleCommand}" CommandParameter="{x:Static controls:ScreenScaleMode.X3}" />
                 </atom:MenuItem>
                 <atom:MenuSeparator />
-                <atom:MenuItem Header="调试器" InputGesture="F8" Command="{Binding ShowDebuggerCommand}"
+                <atom:MenuItem Header="{l:AppLangResource MenuDebugger}" InputGesture="F8" Command="{Binding ShowDebuggerCommand}"
                                Icon="{antdicons:AntDesignIconProvider Kind=BugOutlined}" />
             </atom:MenuItem>
-            <atom:MenuItem Header="帮助">
-                <atom:MenuItem Header="按键说明" InputGesture="F1" Click="OnKeyMapClick"
+            <atom:MenuItem Header="{l:AppLangResource MenuHelp}">
+                <atom:MenuItem Header="{l:AppLangResource MenuKeyMap}" InputGesture="F1" Click="OnKeyMapClick"
                                Icon="{antdicons:AntDesignIconProvider Kind=KeyOutlined}" />
-                                               <atom:MenuSeparator />
-                                               <atom:MenuItem Header="关于 AtomNES" Click="OnAboutClick"
-                                                              Icon="{antdicons:AntDesignIconProvider Kind=InfoCircleOutlined}" />
-                                           </atom:MenuItem>
+                <atom:MenuItem Header="{l:AppLangResource MenuLanguage}" Icon="{antdicons:AntDesignIconProvider Kind=TranslationOutlined}">
+                    <atom:MenuItem x:Name="LangZhItem" Header="简体中文" ToggleType="Radio" GroupName="Language" Command="{Binding SetLanguageCommand}" CommandParameter="zh-CN" />
+                    <atom:MenuItem x:Name="LangEnItem" Header="English" ToggleType="Radio" GroupName="Language" Command="{Binding SetLanguageCommand}" CommandParameter="en-US" />
+                </atom:MenuItem>
+                <atom:MenuSeparator />
+                <atom:MenuItem Header="{l:AppLangResource MenuAbout}" Click="OnAboutClick"
+                               Icon="{antdicons:AntDesignIconProvider Kind=InfoCircleOutlined}" />
+            </atom:MenuItem>
         </atom:Menu>
 
         <!-- 状态栏 -->
