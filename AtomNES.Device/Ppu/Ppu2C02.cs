@@ -195,7 +195,11 @@ public sealed class Ppu2C02 : IPpuDevice
         }
     }
 
-    public void ConnectCartridge(ICartridgeDevice? cartridge) => _cart = cartridge;
+    public void ConnectCartridge(ICartridgeDevice? cartridge)
+    {
+        _cart = cartridge;
+        if (cartridge is Cartridges.Mapper mapper) mapper.Ppu = this;
+    }
 
     public void PowerOn()
     {

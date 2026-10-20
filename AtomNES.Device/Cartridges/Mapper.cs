@@ -206,6 +206,9 @@ public abstract class Mapper : ICartridgeDevice
 
     public void NotifyPpuAddress(ushort address) => OnPpuAddress((ushort)(address & 0x3FFF));
 
+    /// <summary>所连接的 PPU，供需要读取扫描线位置的 Mapper（如 163）使用。</summary>
+    public Ppu.Ppu2C02? Ppu { get; internal set; }
+
     protected virtual void WriteRegister(ushort address, byte value)
     {
     }
