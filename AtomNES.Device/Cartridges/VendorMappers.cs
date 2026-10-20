@@ -1,4 +1,4 @@
-namespace AtomNES.Device.Cartridges;
+﻿namespace AtomNES.Device.Cartridges;
 
 // 阶段 B：正式发行游戏中的中频 Mapper（Bandai、Jaleco、Sunsoft、Konami）。
 
@@ -430,13 +430,16 @@ public sealed class Vrc3(RomImage rom) : Mapper(rom)
 
 /// <summary>
 /// Mapper 24 / 26 (Konami VRC6a/b)：16KB + 8KB PRG、1KB CHR、VRC IRQ。
-/// 扩展音频（2 脉冲 + 锯齿）暂未实现；CHR ROM 名称表模式（$B003 bit4）罕用，暂按 CIRAM 处理。
+/// 含扩展音频（2 脉冲 + 锯齿）；CHR ROM 名称表模式（$B003 bit4）罕用，暂按 CIRAM 处理。
 /// </summary>
 public sealed class Vrc6(RomImage rom) : Mapper(rom)
 {
     private readonly int[] _chr = new int[8];
     private readonly VrcIrq _irq = new();
+    private readonly Audio.Vrc6Audio _audio = new();
     private int _mode;
+
+    public override float AudioOutput => _audio.Output;
 
     public override bool IrqActive => _irq.Pending;
 
@@ -452,11 +455,13 @@ public sealed class Vrc6(RomImage rom) : Mapper(rom)
     {
         base.CpuClock();
         _irq.Clock();
+        _audio.Clock();
     }
 
     protected override void WriteRegister(ushort address, byte value)
     {
         if (Rom.MapperId == 26) address = (ushort)((address & 0xFFFC) | ((address & 1) << 1) | ((address & 2) >> 1));
+        _audio.Write(address, value);
         switch (address & 0xF003)
         {
             case >= 0x8000 and <= 0x8003: SetPrg16K(0, value & 0x0F); break;

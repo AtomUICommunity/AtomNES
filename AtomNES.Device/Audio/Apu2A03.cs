@@ -51,6 +51,9 @@ public sealed class Apu2A03 : IApuDevice
 
     public BandLimitedSynth Synth { get; }
 
+    /// <summary>提供扩展音频的卡带（VRC6/VRC7/N163/5B/MMC5），输出直接叠加到混音结果。</summary>
+    public ICartridgeDevice? Expansion { get; set; }
+
     public bool IrqActive => _frameIrq || _dmc.Irq;
 
     private static float[] BuildPulseTable()
@@ -190,7 +193,8 @@ public sealed class Apu2A03 : IApuDevice
     private void Mix()
     {
         var output = PulseTable[_pulse1.Output + _pulse2.Output]
-                     + TndTable[3 * _triangle.Output + 2 * _noise.Output + _dmc.Output];
+                     + TndTable[3 * _triangle.Output + 2 * _noise.Output + _dmc.Output]
+                     + (Expansion?.AudioOutput ?? 0f);
         if (output != _lastOutput)
         {
             Synth.AddDelta(_synthClock, output - _lastOutput);

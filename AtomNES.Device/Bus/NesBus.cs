@@ -67,11 +67,16 @@ public sealed class NesBus : ICpuBus
         ppu?.ConnectCartridge(Cartridge);
     }
 
-    public void ConnectApu(IApuDevice? apu) => Apu = apu;
+    public void ConnectApu(IApuDevice? apu)
+    {
+        Apu = apu;
+        if (apu is Audio.Apu2A03 a) a.Expansion = Cartridge;
+    }
 
     public void InsertCartridge(ICartridgeDevice cartridge)
     {
         Cartridge = cartridge;
+        if (Apu is Audio.Apu2A03 a) a.Expansion = cartridge;
         Ppu?.ConnectCartridge(cartridge);
         PowerOn();
     }
@@ -79,6 +84,7 @@ public sealed class NesBus : ICpuBus
     public void RemoveCartridge()
     {
         Cartridge = null;
+        if (Apu is Audio.Apu2A03 a) a.Expansion = null;
         Ppu?.ConnectCartridge(null);
     }
 

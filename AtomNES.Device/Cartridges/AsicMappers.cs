@@ -1,4 +1,4 @@
-namespace AtomNES.Device.Cartridges;
+﻿namespace AtomNES.Device.Cartridges;
 
 // 各厂商 ASIC Mapper：MMC2/4、Konami VRC2/4、Irem、Taito、Sunsoft FME-7 等。
 
@@ -467,9 +467,13 @@ public sealed class IremH3001(RomImage rom) : Mapper(rom)
     }
 }
 
-/// <summary>Mapper 69 (Sunsoft FME-7)：命令/参数寄存器，$6000 可映射 ROM 或 RAM，16 位周期 IRQ（不含 5B 音频）。</summary>
+/// <summary>Mapper 69 (Sunsoft FME-7)：命令/参数寄存器，$6000 可映射 ROM 或 RAM，16 位周期 IRQ，含 5B 音频（/）。</summary>
 public sealed class SunsoftFme7(RomImage rom) : Mapper(rom)
 {
+    private readonly Audio.Sunsoft5BAudio _audio = new();
+
+    public override float AudioOutput => _audio.Output;
+
     private int _command;
     private int _ram;
     private bool _irqEnabled;
@@ -484,6 +488,7 @@ public sealed class SunsoftFme7(RomImage rom) : Mapper(rom)
     public override void CpuClock()
     {
         base.CpuClock();
+        _audio.Clock();
         if (!_counterEnabled) return;
         _counter = (_counter - 1) & 0xFFFF;
         if (_counter == 0xFFFF && _irqEnabled) IrqAsserted = true;
@@ -506,6 +511,7 @@ public sealed class SunsoftFme7(RomImage rom) : Mapper(rom)
     {
         switch (address & 0xE000)
         {
+            case 0xC000 or 0xE000: _audio.Write(address, value); break;
             case 0x8000: _command = value & 0x0F; break;
             case 0xA000:
                 switch (_command)

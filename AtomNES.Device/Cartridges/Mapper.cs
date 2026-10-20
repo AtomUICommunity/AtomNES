@@ -48,7 +48,10 @@ public abstract class Mapper : ICartridgeDevice
     private readonly bool[] _chrWritable = new bool[8];
 
     /// <summary>带电池的卡带返回需要持久化的 PRG RAM，否则为 null。</summary>
-    public byte[]? BatteryRam => Rom.HasBattery ? PrgRam : null;
+    public virtual byte[]? BatteryRam => Rom.HasBattery ? PrgRam : null;
+
+    /// <summary>扩展音频当前输出电平（与 APU 混音输出同量纲，约 0~1），无扩展音频时为 0。</summary>
+    public virtual float AudioOutput => 0f;
 
     /// <summary>卡带 IRQ 线电平，供带 CPU 周期计数器的 Mapper 使用。</summary>
     protected bool IrqAsserted;
@@ -137,6 +140,9 @@ public abstract class Mapper : ICartridgeDevice
 
     /// <summary>单独设置某个名称表槽指向 CIRAM 的第 page 页（0/1）。</summary>
     protected void SetNametable(int slot, int page) => _ntPages[slot] = (page & 1) * 0x400;
+
+    /// <summary>名称表地址在 <see cref="Ciram"/> 中的偏移。</summary>
+    protected int NtOffset(int address) => _ntPages[(address >> 10) & 3] + (address & 0x3FF);
 
     #endregion
 

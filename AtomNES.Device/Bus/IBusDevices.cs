@@ -115,4 +115,7 @@ public interface ICartridgeDevice
 
     /// <summary>PPU 在非渲染期间把 v 放到地址总线（$2006/$2007），供 A12 监视。</summary>
     void NotifyPpuAddress(ushort address);
+
+    /// <summary>卡带扩展音频输出电平（VRC6/VRC7/N163/5B/MMC5），由 APU 混入。</summary>
+    float AudioOutput { get; }
 }
