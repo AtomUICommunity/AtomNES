@@ -52,3 +52,9 @@ $env:ATOMNES_ROM_LIBRARY = "D:\资源\rom"; dotnet test AtomNES.Device.Tests --f
 | [059] 泰坦尼克号 | 34 | 头信息错误（疑为盗版板），黑屏 |
 
 已删除：[033] 最终幻想1、[041] 勇者斗恶龙5。
+
+## 待办
+
+- [ ] 即时存档 / 读档（Save State）：序列化 CPU、PPU、APU、Mapper（含扩展音频）全部状态到文件，支持多槽位与快捷键。需为每个 Mapper 补齐状态读写。
+- [ ] MMC5 垂直分屏（仅《宇宙警备队 SDF》使用）。
+- [ ] Sunsoft 5B 包络与噪声。
